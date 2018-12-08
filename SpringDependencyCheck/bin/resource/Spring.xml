@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+	"http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+	<!-- <bean id="c" class="beans.Car" dependency-check="none">
+		no need to pass any setter
+	</bean> --> 
+	
+	<!-- <bean id="c1" class="beans.Car" dependency-check="simple">
+		<property name="carName" value="Audi"></property>
+		no need to pass secondary dependency
+	</bean> -->
+	
+	<!-- <bean id="c1" class="beans.Car" dependency-check="objects">
+		<property name="engine" ref="e"></property>
+		no need to pass primitive dependency
+	</bean> -->
+	<!-- <bean id="e" class="beans.Engine">
+		<property name="modelYear" value="2018"></property>
+	</bean> -->
+	<bean id="c1" class="beans.Car" dependency-check="all">
+	<!-- we must need to call primitive, secoundary setters. -->
+		<property name="carName" value="Audi"></property>
+		<property name="engine" ref="e"></property>
+	</bean>
+	<bean id="e" class="beans.Engine">
+		<property name="modelYear" value="2018"></property>
+	</bean>
+	<!-- if we want to apply annotation instead of using XML based then
+	 we need to activate one class before initializing bean-->
+	<bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"></bean>
+	 
+	<bean id="t" class="beans.Test">
+		<!-- <property name="loginUser" value="Ganepati"></property> -->
+		<property name="driver" value="com.mysql.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/test"></property>
+		<property name="user" value="root"></property>
+		<property name="pass" value="Pass@123"></property>
+	</bean>
+	<bean id="a" class="beans.A" depends-on="b">
+		<!-- class A is depends on class b, so before creating the object
+		of class A create the object of class B. -->
+	</bean>
+	<bean id="b" class="beans.B" depends-on="c">
+		<!-- class B is depends on class C, so before creating the object
+		of class A create the object of class C. -->
+	</bean>
+	<bean id="c" class="beans.C">
+	
+	</bean>
+</beans>	  
+		 
